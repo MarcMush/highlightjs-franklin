@@ -1,54 +1,15 @@
 /*
 Language: Franklin
 Author: Marc Ittel <marc.ittel@gmail.com>
+Description: 
 Requires: xml.js, julia.js, markdown.js, python.js, plaintext.js, javascript.js, bash.js
 Website: https://github.com/tlienart/Franklin.jl
-Description: Close to markdown (many elements taken in markdown.js) with other functionnalities to work with Franklin.jl
 */
 
 function(hljs) {
-  var languages = [['julia-repl'], 
-                   ['markdown', 'md', 'mkdown', 'mkd'],
-                   ['javascript', 'js'],
-                   ['python', 'py'], 
-                   ['xml', 'html'],
-                   ['bash', 'sh'],
-                   ['plaintext']
-                  ]
 
-  var lang_variants = [
-    {
-      begin: '^```julia(:.*)?\\s*$', end: '^```\\s*$',
-      excludeBegin: true, excludeEnd: true, 
-      subLanguage: 'julia'
-    },
-    {
-      begin: '^```(franklin|judoc)\\s*$', end: '^```\\s*$',
-      excludeBegin: true, excludeEnd: true, 
-      subLanguage: 'franklin'
-    }
-  ]
-  for (var lang of languages)
-  {
 
-    lang_variants.push(
-      {
-        begin: '^```(' + lang.join('|') +')\\s*$', end: '^```\\s*$',
-        excludeBegin: true, excludeEnd: true, 
-        subLanguage: lang[0]
-      }
-    )
-  }
-
-  lang_variants.push(
-    {
-      begin: '^```.*$', end: '^```\\s*$',
-      excludeBegin: true, excludeEnd: true, 
-      subLanguage: []
-    }
-  )
-
-  COMMAND = {
+  CMD = {
     className: 'tag',
     variants: [
       {begin: /\\[^a-zA-Z\u0430-\u044f\u0410-\u042f0-9]/},
@@ -64,9 +25,18 @@ function(hljs) {
         '<!--',
         '-->',
         {
-          relevance: 0
+          relevance: 5
         }
       ),
+      // HTML injection
+      {
+        className: 'code',
+        begin: '~~~',
+        end: '~~~',
+        excludeBegin: true, excludeEnd: true,
+        subLanguage: 'xml',
+        relevance: 10
+      },
       // page variable definitions in Julia
       {
         begin: '^@def', 
@@ -114,14 +84,32 @@ function(hljs) {
           {
             begin: '~~~',
             end: '~~~',
-            excludeBegin: true, excludeEnd: true,
-            subLanguage: 'xml',
+            // excludeBegin: true, excludeEnd: true,
+            containts: [{subLanguage: 'xml'}],
             relevance: 10
           },
           {
-            begin: '^`````\\w*\\s*$', end: '^`````\\s*$'
+            begin: '^`````\\w*\\s*$', end: '^`````[ ]*$'
           },
-          ...lang_variants,
+          {
+            end: '^```\\s*$',
+            excludeBegin: true, excludeEnd: true, 
+            variants: 
+            [
+              {begin: '^```julia(:.*)?\\s*$', subLanguage: 'julia'},
+              {begin: '^```julia-repl\\s*$', subLanguage: 'julia-repl'},
+              {begin: '^```(ba)?sh\\s*$', subLanguage: 'bash'},
+              {begin: '^```plaintext\\s*$', subLanguage: 'plaintext'},
+              {begin: '^```py(thon)?\\s*$', subLanguage: 'python'},
+              {begin: '^```(x|ht)ml\\s*$', subLanguage: 'xml'},
+              {begin: '^```(js|javascript)\\s*$', subLanguage: 'javascript'},
+              {begin: '^```(franklin|judoc)\\s*$', subLanguage: 'franklin'},
+
+              // add other languages here
+
+              {begin: '^```.*$', subLanguage: []}
+            ]
+          },
           {
             begin: '`.+?`'
           }
@@ -183,14 +171,14 @@ function(hljs) {
         relevance: 10
       },
       // latex-like commands
-      COMMAND,
+      CMD,
       // latex-like formulas
       {
         className: 'formula',
         begin: /[\$]{1,2}/,
         endSameAsBegin: true,
         contains: [
-          COMMAND,
+          CMD,
           {
             className: 'number',
             begin: '-?\\b\\d+(\\.\\d+)?'
