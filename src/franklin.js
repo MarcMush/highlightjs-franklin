@@ -2,7 +2,7 @@
 Language: Franklin
 Author: Marc Ittel <marc.ittel@gmail.com>
 Description: 
-Requires: xml.js, julia.js, markdown.js, python.js, plaintext.js, javascript.js, bash.js
+Requires: xml.js, julia.js, markdown.js, python.js, plaintext.js, javascript.js, bash.js, julia-repl.js
 Website: https://github.com/tlienart/Franklin.jl
 */
 
@@ -88,43 +88,44 @@ module.exports = function (hljs) {
             relevance: 10
           },
           {
-            begin: '^`````\\w*\\s*$', end: '^`````[ ]*$'
+            begin: '^`````.*\\n', subLanguage: [],
+            end: '^`````\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```julia(:.*)?\\s*$', subLanguage: 'julia',
+            begin: '^```julia(:.*)?\\s*\\n', subLanguage: 'julia',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```julia-repl\\s*$', subLanguage: 'julia-repl',
+            begin: '^```julia\\-repl\\s*\\n', subLanguage: 'julia-repl',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```(ba)?sh\\s*$', subLanguage: 'bash',
+            begin: '^```(ba)?sh\\s*\\n', subLanguage: 'bash',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```plaintext\\s*$', subLanguage: 'plaintext',
+            begin: '^```plaintext\\s*\\n', subLanguage: 'plaintext',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```py(thon)?\\s*$', subLanguage: 'python',
+            begin: '^```py(thon)?\\s*\\n', subLanguage: 'python',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```(x|ht)ml\\s*$', subLanguage: 'xml',
+            begin: '^```(x|ht)ml\\s*\\n', subLanguage: 'xml',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```(js|javascript)\\s*$', subLanguage: 'javascript',
+            begin: '^```(js|javascript)\\s*\\n', subLanguage: 'javascript',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
-            begin: '^```(franklin|judoc)\\s*$', subLanguage: 'franklin',
+            begin: '^```(franklin|judoc)\\s*\\n', subLanguage: 'franklin',
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           // add languages here
           {
-            begin: '^```.*$', subLanguage: [],
+            begin: '^```.*\\n', subLanguage: [],
             end: '^```\\s*$', excludeBegin: true, excludeEnd: true
           },
           {
