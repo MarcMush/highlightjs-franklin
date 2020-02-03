@@ -1,0 +1,32 @@
+<span class="julia"><span class="hljs-meta">@def</span> author = <span class="hljs-string">"MarcMush"</span></span>
+<span class="julia"><span class="hljs-meta">@def</span> hascode = <span class="hljs-literal">true</span></span>
+<span class="julia"><span class="hljs-meta">@def</span> hasmath = <span class="hljs-literal">true</span></span>
+
+<span class="hljs-section"># Title 1</span>
+
+<span class="hljs-section">## Title 2</span>
+
+<span class="hljs-comment">&lt;!-- this is @@a comment --&gt;</span>
+
+<span class="hljs-selector-class">@@important</span>
+    Links to google : <span class="hljs-symbol">\\</span>
+<span class="hljs-selector-class">@@</span>
+
+[<span class="hljs-string">Google</span>](<span class="hljs-link">https://google.com</span>)
+
+~~~<span class="hljs-code"><span class="xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://google.com"</span>&gt;</span>Google<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</span></span>~~~
+
+```julia:/assets/scripts/test<span class="hljs-code"><span class="julia">
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:<span class="hljs-number">4</span>
+    println(i)
+<span class="hljs-keyword">end</span>
+</span></span>```
+
+<span class="hljs-tag">\output</span>{/assets/scripts/test}
+
+
+Inline maths <span class="hljs-formula">$x=<span class="hljs-number">0</span>$</span> and code <span class="hljs-code">`a = 2`</span>
+
+<span class="hljs-formula">$$ <span class="hljs-tag">\mathcal</span> W_<span class="hljs-tag">\psi</span>[f] = <span class="hljs-tag">\int</span>_{<span class="hljs-tag">\mathbb</span> R} f(s)<span class="hljs-tag">\psi</span>(s)<span class="hljs-tag">\mathrm</span>{d}s $$</span>
